@@ -1,7 +1,7 @@
 # Rest-API-SpringBoot
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/lucashbdutra/Cities-API/blob/main/LICENSE) 
 
-API rest que permite o calculo da distancia entre duas cidades do Brasil. Além de permitir a pesquisa paginada de vários países do mundo e todos os estados do Brasil.
+API rest que permite o cálculo da distancia entre duas cidades do Brasil. Além de permitir a pesquisa paginada de vários países do mundo e todos os estados do Brasil.
 
 ## Sobre o projeto
 
