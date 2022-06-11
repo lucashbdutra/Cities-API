@@ -1,7 +1,7 @@
-package com.project.citiesapi.services;
+package com.project.citiesapi.resources;
 
 import com.project.citiesapi.entities.City;
-import com.project.citiesapi.repositories.CityRepository;
+import com.project.citiesapi.services.CityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Point;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,13 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
-class CityServiceTest {
+class CityResourceTest {
 
     @Autowired
-    CityService cityService;
+    CityResource cityResource;
 
     @MockBean
-    CityRepository cityRepository;
+    CityService cityService;
 
     private final String NAME = "test";
     private final Long ID = 1L;
@@ -38,6 +39,7 @@ class CityServiceTest {
 
     @BeforeEach
     void setUp(){
+
         ibate = new City(4929L, "Ibaté", 26, 3519303, "(-21.95840072631836,-47.98820114135742)",
                 new Point(-21.95840072631836, -47.98820114135742));
 
@@ -52,25 +54,26 @@ class CityServiceTest {
 
     @Test
     void shouldReturnAPageWhenAPageableParameterArePassed() {
-        given(cityRepository.findAll(pageable)).willReturn(page);
+        given(cityService.findAll(pageable)).willReturn(page);
 
-        Page<City> test = cityService.findAll(pageable);
+        ResponseEntity<Page<City>> test = cityResource.findAll(pageable);
 
-        assertThat(test).isEqualTo(page);
         assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(page.getClass());
-
+        assertThat(test).isEqualTo(ResponseEntity.ok().body(page));
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(page).getClass());
+        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(page).getStatusCode());
     }
 
     @Test
     void shouldReturnACityWhenANameAndUfArePassed() {
-        given(cityRepository.searchCity("ibate", 26)).willReturn(ibate);
+        given(cityService.searchCity("ibate", 26)).willReturn(ibate);
 
-        City test = cityService.searchCity("ibate", 26);
+        ResponseEntity<City> test = cityResource.searchCity("ibate",26);
 
-        assertThat(test).isEqualTo(ibate);
         assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(ibate.getClass());
-        assertThat(test.getId()).isEqualTo(ibate.getId());
+        assertThat(test).isEqualTo(ResponseEntity.ok().body(ibate));
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(ibate).getClass());
+        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(ibate).getStatusCode());
+        assertThat(test.getBody().getId()).isEqualTo(ResponseEntity.ok().body(ibate).getBody().getId());
     }
 }

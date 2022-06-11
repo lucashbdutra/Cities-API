@@ -1,7 +1,7 @@
-package com.project.citiesapi.services;
+package com.project.citiesapi.resources;
 
 import com.project.citiesapi.entities.Country;
-import com.project.citiesapi.repositories.CountryRepository;
+import com.project.citiesapi.services.CountryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,13 +21,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
-class CountryServiceTest {
+class CountryResourceTest {
 
     @Autowired
-    CountryService countryService;
+    CountryResource countryResource;
 
     @MockBean
-    CountryRepository countryRepository;
+    CountryService countryService;
 
     private final Long ID = 1L;
     private final String NAME = "test";
@@ -47,31 +48,34 @@ class CountryServiceTest {
         list = Arrays.asList(country2,country);
         page = new PageImpl<>(list);
         optional = Optional.of(country2);
+    }
 
+    @Test
+    void shouldReturnAPageWhenAPageableParameterArePassed(){
+        given(countryService.findAll(pageable)).willReturn(page);
+
+        ResponseEntity<Page<Country>> test = countryResource.findAll(pageable);
+
+        assertThat(test).isNotNull();
+        assertThat(test).isEqualTo(ResponseEntity.ok().body(page));
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(page).getClass());
+        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(page).getStatusCode());
 
     }
 
     @Test
-    void shouldReturnAPageWhenAPageableParameterArePassed() {
-        given(countryRepository.findAll(pageable)).willReturn(page);
+    void shouldReturnACountryWhenALongParameterArePassed(){
+        given(countryService.findById(Mockito.anyLong())).willReturn(country);
 
-        Page<Country> test = countryService.findAll(pageable);
+        ResponseEntity<Country> test = countryResource.findById(ID);
 
-        assertThat(test).isEqualTo(page);
         assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(page.getClass());
+        assertThat(test).isEqualTo(ResponseEntity.ok().body(country));
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(country).getClass());
+        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(country).getStatusCode());
+        assertThat(test.getBody().getId()).isEqualTo(ResponseEntity.ok().body(country).getBody().getId());
+
 
     }
 
-    @Test
-    void shouldReturnACountryWhenALongParameterArePassed() {
-        given(countryRepository.findById(Mockito.anyLong())).willReturn(optional);
-
-        Country test = countryService.findById(ID);
-
-        assertThat(test).isEqualTo(optional.get());
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(optional.get().getClass());
-        assertThat(test.getId()).isEqualTo(optional.get().getId());
-    }
 }
