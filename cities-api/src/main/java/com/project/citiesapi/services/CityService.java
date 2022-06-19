@@ -1,6 +1,7 @@
 package com.project.citiesapi.services;
 
 import com.project.citiesapi.entities.City;
+import com.project.citiesapi.exceptions.CityNotFound;
 import com.project.citiesapi.repositories.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,14 @@ public class CityService {
     //Pesquisa de cidade usando a query adicionada ao CityRepository
     public City searchCity(String city, Integer uf ){
 
-        return cityRepository.searchCity(city, uf);
+        City cityTest = cityRepository.searchCity(city, uf);
+
+        if(cityTest != null){
+
+            return cityTest;
+
+        } else { //Caso a cidade n�o seja encotrada lança a exception personalizada
+            throw new CityNotFound("'name' or 'uf' typed are invalid");
+        }
     }
 }

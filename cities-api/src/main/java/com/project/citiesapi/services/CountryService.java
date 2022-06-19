@@ -1,6 +1,7 @@
 package com.project.citiesapi.services;
 
 import com.project.citiesapi.entities.Country;
+import com.project.citiesapi.exceptions.CountryNotFound;
 import com.project.citiesapi.repositories.CountryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,13 @@ public class CountryService {
     public Country findById(Long id){
 
         Optional<Country> country = countryRepository.findById(id);
-        return country.orElse(null);
+        if(country.isPresent()){
+
+            return country.get();
+
+        }else {//Caso n�o tenha nenhum Pa�s no id pesquisado, lança a exception personalizada.
+            throw new CountryNotFound("'ID' does not exist");
+        }
     }
 
 }
