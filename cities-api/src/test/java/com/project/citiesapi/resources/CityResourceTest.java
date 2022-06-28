@@ -68,7 +68,7 @@ class CityResourceTest {
     void shouldReturnACityWhenANameAndUfArePassed() {
         given(cityService.searchCity("ibate", 26)).willReturn(ibate);
 
-        ResponseEntity<City> test = cityResource.searchCity("ibate",26);
+        ResponseEntity<City> test = cityResource.searchCity(26,"ibate");
 
         assertThat(test).isNotNull();
         assertThat(test).isEqualTo(ResponseEntity.ok().body(ibate));

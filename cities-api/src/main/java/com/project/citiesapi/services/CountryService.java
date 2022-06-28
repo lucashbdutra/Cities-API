@@ -32,14 +32,8 @@ public class CountryService {
 
     public Country findById(Long id){
 
-        Optional<Country> country = countryRepository.findById(id);
-        if(country.isPresent()){
-
-            return country.get();
-
-        }else {//Caso n�o tenha nenhum Pa�s no id pesquisado, lança a exception personalizada.
-            throw new CountryNotFound("'ID' does not exist");
-        }
+      return countryRepository.findById(id)
+              .orElseThrow(() -> new CountryNotFound("Country not found for this id = " + id));
     }
 
 }
