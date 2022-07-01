@@ -1,5 +1,10 @@
 package com.project.citiesapi.utils;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
 public enum EarthRadius {
 
     /**
@@ -12,11 +17,5 @@ public enum EarthRadius {
 
     private final String unit;
     private final float value;
-
-    EarthRadius(String unit, float value){
-        this.unit = unit;
-        this.value = value;
-    }
-
 
 }

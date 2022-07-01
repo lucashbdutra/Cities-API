@@ -5,25 +5,24 @@ import com.project.citiesapi.entities.State;
 import com.project.citiesapi.services.StateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
 class StateResourceTest {
 
-    @Autowired
+    @InjectMocks
     StateResource stateResource;
 
-    @MockBean
+    @Mock
     StateService stateService;
 
     private final  Long ID = 1L;

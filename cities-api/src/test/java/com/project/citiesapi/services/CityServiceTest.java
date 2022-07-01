@@ -4,9 +4,9 @@ import com.project.citiesapi.entities.City;
 import com.project.citiesapi.repositories.CityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,10 +21,10 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 class CityServiceTest {
 
-    @Autowired
+    @InjectMocks
     CityService cityService;
 
-    @MockBean
+    @Mock
     CityRepository cityRepository;
 
     private final String NAME = "test";

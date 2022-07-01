@@ -5,9 +5,9 @@ import com.project.citiesapi.repositories.CityRepository;
 import com.project.citiesapi.utils.EarthRadius;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.geo.Point;
 
 import java.util.Arrays;
@@ -20,11 +20,11 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 class DistanceServiceTest {
 
-    @Autowired
-    private DistanceService service;
+    @InjectMocks
+    DistanceService service;
 
-    @MockBean
-    private CityRepository cityRepository;
+    @Mock
+    CityRepository cityRepository;
 
     private City saoCarlos;
     private City ibate;
@@ -33,6 +33,7 @@ class DistanceServiceTest {
     public void setUp() {
         ibate = new City(4929L, "Ibaté", 26, 3519303, "(-21.95840072631836,-47.98820114135742)",
                 new Point(-21.95840072631836, -47.98820114135742));
+
         saoCarlos = new City(5254L, "São Carlos", 26, 3548906, "(-22.01740074157715,-47.88600158691406)",
                         new Point(-22.01740074157715, -47.88600158691406));
     }

@@ -4,10 +4,10 @@ import com.project.citiesapi.services.DistanceService;
 import com.project.citiesapi.utils.EarthRadius;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,10 +16,10 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 class DistanceResourceTest {
 
-    @Autowired
+    @InjectMocks
     DistanceResource distanceResource;
 
-    @MockBean
+    @Mock
     DistanceService distanceService;
 
     private final Long ID = 1L;

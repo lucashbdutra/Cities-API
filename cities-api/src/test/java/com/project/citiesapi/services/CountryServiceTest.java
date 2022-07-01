@@ -4,10 +4,10 @@ import com.project.citiesapi.entities.Country;
 import com.project.citiesapi.repositories.CountryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +22,10 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 class CountryServiceTest {
 
-    @Autowired
+    @InjectMocks
     CountryService countryService;
 
-    @MockBean
+    @Mock
     CountryRepository countryRepository;
 
     private final Long ID = 1L;
@@ -64,7 +64,7 @@ class CountryServiceTest {
     }
 
     @Test
-    void shouldReturnACountryWhenALongParameterArePassed() {
+    void shouldReturnACountryWhenAIDParameterArePassed() {
         given(countryRepository.findById(Mockito.anyLong())).willReturn(optional);
 
         Country test = countryService.findById(ID);

@@ -27,10 +27,11 @@ public class CountryService {
      */
 
     public Page<Country> findAll(Pageable page){
+
         return countryRepository.findAll(page);
     }
 
-    public Country findById(Long id){
+    public Country findById(Long id) throws CountryNotFound{
 
       return countryRepository.findById(id)
               .orElseThrow(() -> new CountryNotFound("Country not found for this id = " + id));
