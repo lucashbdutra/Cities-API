@@ -86,6 +86,14 @@ cd path-to-file
 ./mvnw spring-boot:run
 ```
 
+##Documenta√√o
+
+### Postman
+https://documenter.getpostman.com/view/19190144/UzJFuxzt
+
+### Swagger
+http://localhost:8080/swagger-ui/index.html
+
 # Autor
 
 Lucas Dutra

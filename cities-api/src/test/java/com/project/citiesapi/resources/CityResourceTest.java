@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
@@ -59,21 +60,35 @@ class CityResourceTest {
         ResponseEntity<Page<City>> test = cityResource.findAll(pageable);
 
         assertThat(test).isNotNull();
+        assertThat(test.getBody()).isNotNull();
+
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
         assertThat(test).isEqualTo(ResponseEntity.ok().body(page));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(page).getClass());
+        assertThat(test.getBody().getClass()).isEqualTo(page.getClass());
         assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(page).getStatusCode());
+
     }
 
     @Test
     void shouldReturnACityWhenANameAndUfArePassed() {
-        given(cityService.searchCity("ibate", 26)).willReturn(ibate);
+        given(cityService.searchCity(any(String.class), any(Integer.class))).willReturn(ibate);
 
         ResponseEntity<City> test = cityResource.searchCity(26,"ibate");
 
         assertThat(test).isNotNull();
+        assertThat(test.getBody()).isNotNull();
+
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
         assertThat(test).isEqualTo(ResponseEntity.ok().body(ibate));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(ibate).getClass());
+        assertThat(test.getBody()).isEqualTo(ibate);
+        assertThat(test.getBody().getClass()).isEqualTo(ibate.getClass());
         assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(ibate).getStatusCode());
-        assertThat(test.getBody().getId()).isEqualTo(ResponseEntity.ok().body(ibate).getBody().getId());
+
+        assertThat(test.getBody().getId()).isEqualTo(ibate.getId());
+        assertThat(test.getBody().getName()).isEqualTo(ibate.getName());
+        assertThat(test.getBody().getUf()).isEqualTo(ibate.getUf());
+        assertThat(test.getBody().getIbge()).isEqualTo(ibate.getIbge());
+        assertThat(test.getBody().getGeolocation()).isEqualTo(ibate.getGeolocation());
+        assertThat(test.getBody().getLocation()).isEqualTo(ibate.getLocation());
     }
 }

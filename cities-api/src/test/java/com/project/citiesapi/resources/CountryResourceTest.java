@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
@@ -57,23 +57,35 @@ class CountryResourceTest {
         ResponseEntity<Page<Country>> test = countryResource.findAll(pageable);
 
         assertThat(test).isNotNull();
+        assertThat(test.getBody()).isNotNull();
+
         assertThat(test).isEqualTo(ResponseEntity.ok().body(page));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(page).getClass());
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
         assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(page).getStatusCode());
 
     }
 
+
     @Test
     void shouldReturnACountryWhenALongParameterArePassed(){
-        given(countryService.findById(Mockito.anyLong())).willReturn(country);
+        given(countryService.findById(anyLong())).willReturn(country);
 
         ResponseEntity<Country> test = countryResource.findById(ID);
 
         assertThat(test).isNotNull();
+        assertThat(test.getBody()).isNotNull();
+
         assertThat(test).isEqualTo(ResponseEntity.ok().body(country));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.ok().body(country).getClass());
+        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
+        assertThat(test.getBody().getClass()).isEqualTo(country.getClass());
+        assertThat(test.getBody()).isEqualTo(country);
         assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(country).getStatusCode());
-        assertThat(test.getBody().getId()).isEqualTo(ResponseEntity.ok().body(country).getBody().getId());
+
+        assertThat(test.getBody().getId()).isEqualTo(country.getId());
+        assertThat(test.getBody().getName()).isEqualTo(country.getName());
+        assertThat(test.getBody().getPortugueseName()).isEqualTo(country.getPortugueseName());
+        assertThat(test.getBody().getCode()).isEqualTo(country.getCode());
+        assertThat(test.getBody().getBacen()).isEqualTo(country.getBacen());
 
 
     }

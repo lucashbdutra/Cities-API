@@ -12,10 +12,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Point;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
@@ -31,8 +32,6 @@ class CityServiceTest {
     private final Long ID = 1L;
 
     private City ibate;
-    private City saoCarlos;
-    private List<City> list;
     private Page<City> page;
     private Pageable pageable;
 
@@ -41,10 +40,7 @@ class CityServiceTest {
         ibate = new City(4929L, "Ibaté", 26, 3519303, "(-21.95840072631836,-47.98820114135742)",
                 new Point(-21.95840072631836, -47.98820114135742));
 
-        saoCarlos = new City(5254L, "São Carlos", 26, 3548906, "(-22.01740074157715,-47.88600158691406)",
-                new Point(-22.01740074157715, -47.88600158691406));
-
-        list = Arrays.asList(ibate,saoCarlos);
+        List<City> list = List.of(ibate);
 
         page = new PageImpl<>(list); // Pra criar uma page
 
@@ -64,13 +60,19 @@ class CityServiceTest {
 
     @Test
     void shouldReturnACityWhenANameAndUfArePassed() {
-        given(cityRepository.searchCity("ibate", 26)).willReturn(ibate);
+        given(cityRepository.searchCity(any(String.class), anyInt())).willReturn(ibate);
 
         City test = cityService.searchCity("ibate", 26);
 
         assertThat(test).isEqualTo(ibate);
         assertThat(test).isNotNull();
         assertThat(test.getClass()).isEqualTo(ibate.getClass());
+
         assertThat(test.getId()).isEqualTo(ibate.getId());
+        assertThat(test.getName()).isEqualTo(ibate.getName());
+        assertThat(test.getUf()).isEqualTo(ibate.getUf());
+        assertThat(test.getIbge()).isEqualTo(ibate.getIbge());
+        assertThat(test.getGeolocation()).isEqualTo(ibate.getGeolocation());
+        assertThat(test.getLocation()).isEqualTo(ibate.getLocation());
     }
 }

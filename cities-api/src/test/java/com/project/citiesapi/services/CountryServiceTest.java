@@ -1,22 +1,24 @@
 package com.project.citiesapi.services;
 
 import com.project.citiesapi.entities.Country;
+import com.project.citiesapi.exceptions.CountryNotFound;
 import com.project.citiesapi.repositories.CountryRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
@@ -42,11 +44,10 @@ class CountryServiceTest {
     void setUp(){
 
         country = new Country(ID,NAME,"brasil","15",56 );
-        Country country2 = new Country(ID,NAME,"japao","87",55 );
 
-        list = Arrays.asList(country2,country);
+        list = List.of(country);
         page = new PageImpl<>(list);
-        optional = Optional.of(country2);
+        optional = Optional.of(country);
 
 
     }
@@ -65,13 +66,25 @@ class CountryServiceTest {
 
     @Test
     void shouldReturnACountryWhenAIDParameterArePassed() {
-        given(countryRepository.findById(Mockito.anyLong())).willReturn(optional);
+        given(countryRepository.findById(anyLong())).willReturn(optional);
 
         Country test = countryService.findById(ID);
 
-        assertThat(test).isEqualTo(optional.get());
+        assertThat(test).isEqualTo(country);
         assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(optional.get().getClass());
-        assertThat(test.getId()).isEqualTo(optional.get().getId());
+        assertThat(test.getClass()).isEqualTo(country.getClass());
+
+        assertThat(test.getId()).isEqualTo(country.getId());
+        assertThat(test.getName()).isEqualTo(country.getName());
+        assertThat(test.getPortugueseName()).isEqualTo(country.getPortugueseName());
+        assertThat(test.getCode()).isEqualTo(country.getCode());
+        assertThat(test.getBacen()).isEqualTo(country.getBacen());
+    }
+
+    @Test
+    void shouldThrowACountryNotFoundExceptionWhenAEmptyOptionalArePasse(){
+        given(countryRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        assertThrows(CountryNotFound.class, () -> countryService.findById(ID), "Country not found for this id = " + ID);
     }
 }

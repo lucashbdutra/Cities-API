@@ -6,11 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
@@ -33,7 +33,7 @@ class DistanceResourceTest {
 
     @Test
     void ShouldReturnADistanceBetweenTwoCitiesInMilesWhenTheIdsArePassed() {
-        given(distanceService.distanceByPointsInMiles(Mockito.anyLong(), Mockito.anyLong())).willReturn(NUMBER);
+        given(distanceService.distanceByPointsInMiles(anyLong(), anyLong())).willReturn(NUMBER);
 
         ResponseEntity<Double> test = distanceResource.byPoints(ID, ID);
 
@@ -45,7 +45,7 @@ class DistanceResourceTest {
 
     @Test
     void ShouldReturnADistanceBetweenTwoCitiesInMetersWhenTheIdsArePassed() {
-        given(distanceService.distanceByCubeInMeters(Mockito.anyLong(), Mockito.anyLong())).willReturn(NUMBER);
+        given(distanceService.distanceByCubeInMeters(anyLong(), anyLong())).willReturn(NUMBER);
 
         ResponseEntity<Double> test = distanceResource.byCube(ID, ID);
 
