@@ -1,7 +1,7 @@
 # Cities-API
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/lucashbdutra/Cities-API/blob/main/LICENSE) ![NPM](https://img.shields.io/github/repo-size/lucashbdutra/Cities-API)
 
-API rest que permite o cálculo da distancia entre duas cidades do Brasil. Além de permitir a pesquisa paginada de vários países do mundo e todos os estados do Brasil.
+API rest que permite o clculo da distncia entre duas cidades do Brasil. Além de permitir a pesquisa paginada de vários países do mundo e todos os estados do Brasil.
 
 ## Tecnologias utilizadas
 ### Back end
@@ -73,26 +73,26 @@ select earth_distance(
 ## Como executar o projeto
 
 ### Back end
-Pré-requisitos: Java 18
+PrÃ©-requisitos: Java 18
 
 ```bash
-## clonar repositório
+## clonar repositÃ³rio
 git clone https://github.com/lucashbdutra/Cities-API
 
-## entrar na pasta do projeto que você quer executar
+## entrar na pasta do projeto que vocÃª quer executar
 cd path-to-file
 
 ## executar o projeto
 ./mvnw spring-boot:run
 ```
 
-##Documenta��o
+##Documentação
 
 ### Postman
 https://documenter.getpostman.com/view/19190144/UzJFuxzt
 
 ### Swagger
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8080/swagger-ui.html
 
 # Autor
 
