@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { City } from 'src/app/interfaces/city';
 import { CityDTO } from 'src/app/interfaces/city-dto';
@@ -17,11 +18,15 @@ export class CitiesComponent {
 
   cities:City[] = []
 
+  searchTerm: string = '';
+  loading: boolean = false;
+
   constructor( private cityService: CitiesService ){
     this.listar();
   }
 
   listar(page: number = 0, size: number = 10){
+    this.loading = true;
 
     this.cityService.getAll(page, size).subscribe((cityDTO: CityDTO) => {
       this.cities = cityDTO.cities;
@@ -29,7 +34,8 @@ export class CitiesComponent {
       this.totalElements = cityDTO.totalElements;
       this.pageNumber = cityDTO.pageNumber;
       this.size = cityDTO.size;
-      console.log(cityDTO.cities)
+
+      this.loading = false;
     });
   }
 
@@ -60,6 +66,14 @@ export class CitiesComponent {
   handleItem(event: Event){
     const target = event.target as HTMLInputElement
     const value = target.value
-    // this.name = value as string;
+    this.searchTerm = value as string;
+  }
+
+  search(){
+    let params = new HttpParams();
+    params = params.set('searchTerm', this.searchTerm)
+    this.cityService.search(params).subscribe((city: City) => {
+      this.cities = Array.of(city);
+    })
   }
 }

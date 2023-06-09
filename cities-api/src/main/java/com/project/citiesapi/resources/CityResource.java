@@ -18,7 +18,7 @@ public class CityResource {
 
     public final CityService cityService;
 
-    @GetMapping //Recebe um parâmetro de "pageable" para filtrar os resultados
+    @GetMapping
     @Operation(summary = "Retorna todas as cidades organizadas em uma pagina")
     public ResponseEntity<CityDTO> findAll(
             @RequestParam(
@@ -39,26 +39,10 @@ public class CityResource {
         return ResponseEntity.ok().body(cityService.findAll(pageRequest));
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<Page<City>> search(
-            @RequestParam("searchTerm") String searchTerm,
-            @RequestParam(
-                    value = "page",
-                    required = false,
-                    defaultValue = "0") int page,
-            @RequestParam(
-                    value = "size",
-                    required = false,
-                    defaultValue = "10") int size) {
-        return ResponseEntity.ok().body(cityService.search(searchTerm, page, size));
+    @GetMapping("/searchCity")
+    public ResponseEntity<City> search(@RequestParam("searchTerm") String searchTerm){
+
+        return ResponseEntity.ok().body(cityService.searchCity(searchTerm));
     }
-
-
-//    @GetMapping("/search")
-//    @Operation(summary = "Busca uma cidade recebendo seu nome e o codigo da sua UF como parametro.") //Coloca uma breve descriçao no endpoint da documentaçao do swagger.
-//    public ResponseEntity<City> searchCity(@RequestParam Integer uf,
-//                                           @RequestParam String nome){ //Pensar em mudar para receber a uf por @PathVariable
-//        return ResponseEntity.ok().body(cityService.searchCity(nome, uf));
-//    }
 
 }

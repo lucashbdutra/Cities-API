@@ -1,0 +1,36 @@
+input{
+  background-color: #dcdcdc;
+}
+
+input::placeholder{
+  color: black;
+}
+
+.alinha{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1%;
+}
+
+h1{
+  text-align: center;
+}
+
+.card{
+  background-color: #dcdcdc;
+}
+
+
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-align {
+  display: block;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+}

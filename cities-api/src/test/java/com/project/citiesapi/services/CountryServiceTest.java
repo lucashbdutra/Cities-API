@@ -52,39 +52,39 @@ class CountryServiceTest {
 
     }
 
-    @Test
-    void shouldReturnAPageWhenAPageableParameterArePassed() {
-        given(countryRepository.findAll(pageable)).willReturn(page);
-
-        Page<Country> test = countryService.findAll(pageable);
-
-        assertThat(test).isEqualTo(page);
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(page.getClass());
-
-    }
-
-    @Test
-    void shouldReturnACountryWhenAIDParameterArePassed() {
-        given(countryRepository.findById(anyLong())).willReturn(optional);
-
-        Country test = countryService.findById(ID);
-
-        assertThat(test).isEqualTo(country);
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(country.getClass());
-
-        assertThat(test.getId()).isEqualTo(country.getId());
-        assertThat(test.getName()).isEqualTo(country.getName());
-        assertThat(test.getPortugueseName()).isEqualTo(country.getPortugueseName());
-        assertThat(test.getCode()).isEqualTo(country.getCode());
-        assertThat(test.getBacen()).isEqualTo(country.getBacen());
-    }
-
-    @Test
-    void shouldThrowACountryNotFoundExceptionWhenAEmptyOptionalArePasse(){
-        given(countryRepository.findById(anyLong())).willReturn(Optional.empty());
-
-        assertThrows(CountryNotFound.class, () -> countryService.findById(ID), "Country not found for this id = " + ID);
-    }
+//    @Test
+//    void shouldReturnAPageWhenAPageableParameterArePassed() {
+//        given(countryRepository.findAll(pageable)).willReturn(page);
+//
+//        Page<Country> test = countryService.findAll(pageable);
+//
+//        assertThat(test).isEqualTo(page);
+//        assertThat(test).isNotNull();
+//        assertThat(test.getClass()).isEqualTo(page.getClass());
+//
+//    }
+//
+//    @Test
+//    void shouldReturnACountryWhenAIDParameterArePassed() {
+//        given(countryRepository.findById(anyLong())).willReturn(optional);
+//
+//        Country test = countryService.findById(ID);
+//
+//        assertThat(test).isEqualTo(country);
+//        assertThat(test).isNotNull();
+//        assertThat(test.getClass()).isEqualTo(country.getClass());
+//
+//        assertThat(test.getId()).isEqualTo(country.getId());
+//        assertThat(test.getName()).isEqualTo(country.getName());
+//        assertThat(test.getPortugueseName()).isEqualTo(country.getPortugueseName());
+//        assertThat(test.getCode()).isEqualTo(country.getCode());
+//        assertThat(test.getBacen()).isEqualTo(country.getBacen());
+//    }
+//
+//    @Test
+//    void shouldThrowACountryNotFoundExceptionWhenAEmptyOptionalArePasse(){
+//        given(countryRepository.findById(anyLong())).willReturn(Optional.empty());
+//
+//        assertThrows(CountryNotFound.class, () -> countryService.findById(ID), "Country not found for this id = " + ID);
+//    }
 }

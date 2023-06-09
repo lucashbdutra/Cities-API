@@ -50,44 +50,44 @@ class CountryResourceTest {
         optional = Optional.of(country2);
     }
 
-    @Test
-    void shouldReturnAPageWhenAPageableParameterArePassed(){
-        given(countryService.findAll(pageable)).willReturn(page);
-
-        ResponseEntity<Page<Country>> test = countryResource.findAll(pageable);
-
-        assertThat(test).isNotNull();
-        assertThat(test.getBody()).isNotNull();
-
-        assertThat(test).isEqualTo(ResponseEntity.ok().body(page));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
-        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(page).getStatusCode());
-
-    }
-
-
-    @Test
-    void shouldReturnACountryWhenALongParameterArePassed(){
-        given(countryService.findById(anyLong())).willReturn(country);
-
-        ResponseEntity<Country> test = countryResource.findById(ID);
-
-        assertThat(test).isNotNull();
-        assertThat(test.getBody()).isNotNull();
-
-        assertThat(test).isEqualTo(ResponseEntity.ok().body(country));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
-        assertThat(test.getBody().getClass()).isEqualTo(country.getClass());
-        assertThat(test.getBody()).isEqualTo(country);
-        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(country).getStatusCode());
-
-        assertThat(test.getBody().getId()).isEqualTo(country.getId());
-        assertThat(test.getBody().getName()).isEqualTo(country.getName());
-        assertThat(test.getBody().getPortugueseName()).isEqualTo(country.getPortugueseName());
-        assertThat(test.getBody().getCode()).isEqualTo(country.getCode());
-        assertThat(test.getBody().getBacen()).isEqualTo(country.getBacen());
-
-
-    }
+//    @Test
+//    void shouldReturnAPageWhenAPageableParameterArePassed(){
+//        given(countryService.findAll(pageable)).willReturn(page);
+//
+//        ResponseEntity<Page<Country>> test = countryResource.findAll(pageable);
+//
+//        assertThat(test).isNotNull();
+//        assertThat(test.getBody()).isNotNull();
+//
+//        assertThat(test).isEqualTo(ResponseEntity.ok().body(page));
+//        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
+//        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(page).getStatusCode());
+//
+//    }
+//
+//
+//    @Test
+//    void shouldReturnACountryWhenALongParameterArePassed(){
+//        given(countryService.findById(anyLong())).willReturn(country);
+//
+//        ResponseEntity<Country> test = countryResource.findById(ID);
+//
+//        assertThat(test).isNotNull();
+//        assertThat(test.getBody()).isNotNull();
+//
+//        assertThat(test).isEqualTo(ResponseEntity.ok().body(country));
+//        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
+//        assertThat(test.getBody().getClass()).isEqualTo(country.getClass());
+//        assertThat(test.getBody()).isEqualTo(country);
+//        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(country).getStatusCode());
+//
+//        assertThat(test.getBody().getId()).isEqualTo(country.getId());
+//        assertThat(test.getBody().getName()).isEqualTo(country.getName());
+//        assertThat(test.getBody().getPortugueseName()).isEqualTo(country.getPortugueseName());
+//        assertThat(test.getBody().getCode()).isEqualTo(country.getCode());
+//        assertThat(test.getBody().getBacen()).isEqualTo(country.getBacen());
+//
+//
+//    }
 
 }

@@ -1,16 +1,16 @@
 package com.project.citiesapi.resources;
 
+import com.project.citiesapi.DTO.CountryDTO;
 import com.project.citiesapi.entities.Country;
 import com.project.citiesapi.services.CountryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/countries")
@@ -21,13 +21,29 @@ public class CountryResource {
 
     @GetMapping //Recebe um parâmetro de "pageable" para filtrar os resultados
     @Operation(summary = "Retorna basicamente todos os paises do mundo organizados em uma pagina.")
-    public ResponseEntity<Page<Country>> findAll(Pageable page){
-        return ResponseEntity.ok().body(countryService.findAll(page));
+    public ResponseEntity<CountryDTO> findAll(
+            @RequestParam(
+                    value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size){
+
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                size,
+                Sort.Direction.ASC,
+                "name");
+
+        return ResponseEntity.ok().body(countryService.findAll(pageRequest));
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Retorna um pais especifico de acordo com seu ID.")
-    public ResponseEntity<Country> findById(@PathVariable Long id){
-        return ResponseEntity.ok().body(countryService.findById(id));
+    @GetMapping("/searchCountry")
+    @Operation(summary = "Retorna um pais especifico de acordo com seu nome.")
+    public ResponseEntity<Country> findById(@RequestParam("searchTerm") String searchTerm){
+
+        return ResponseEntity.ok().body(countryService.searchCountry(searchTerm));
     }
 }

@@ -1,12 +1,12 @@
 package com.project.citiesapi.services;
 
+import com.project.citiesapi.DTO.StateDTO;
 import com.project.citiesapi.entities.State;
-import com.project.citiesapi.exceptions.StateNotFound;
 import com.project.citiesapi.repositories.StateRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,14 +14,23 @@ public class StateService {
 
     final StateRepository stateRepository;
 
-    public List<State> findAll(){
+    public StateDTO findAll(Pageable pageable){
 
-        return stateRepository.findAll();
+        Page<State> states = stateRepository.findAll(pageable);
+
+        StateDTO stateDTO = new StateDTO();
+        stateDTO.setStates(states.getContent());
+        stateDTO.setTotalPages(states.getTotalPages());
+        stateDTO.setTotalElements(states.getTotalElements());
+        stateDTO.setPageNumber(states.getNumber());
+        stateDTO.setSize(states.getSize());
+
+        return stateDTO;
     }
 
-    public State findById(Long id) throws StateNotFound{
+    public State searchState(String searchTerm) {
 
-        return stateRepository.findById(id)
-                .orElseThrow(() -> new StateNotFound("State not found for this id = " + id));
+
+        return stateRepository.searchState(searchTerm.toLowerCase());
     }
 }

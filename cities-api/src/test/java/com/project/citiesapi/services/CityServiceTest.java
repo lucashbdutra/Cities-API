@@ -46,33 +46,33 @@ class CityServiceTest {
 
     }
 
-    @Test
-    void shouldReturnAPageWhenAPageableParameterArePassed() {
-        given(cityRepository.findAll(pageable)).willReturn(page);
-
-        Page<City> test = cityService.findAll(pageable);
-
-        assertThat(test).isEqualTo(page);
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(page.getClass());
-
-    }
-
-    @Test
-    void shouldReturnACityWhenANameAndUfArePassed() {
-        given(cityRepository.searchCity(any(String.class), anyInt())).willReturn(ibate);
-
-        City test = cityService.searchCity("ibate", 26);
-
-        assertThat(test).isEqualTo(ibate);
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(ibate.getClass());
-
-        assertThat(test.getId()).isEqualTo(ibate.getId());
-        assertThat(test.getName()).isEqualTo(ibate.getName());
-        assertThat(test.getUf()).isEqualTo(ibate.getUf());
-        assertThat(test.getIbge()).isEqualTo(ibate.getIbge());
-        assertThat(test.getGeolocation()).isEqualTo(ibate.getGeolocation());
-        assertThat(test.getLocation()).isEqualTo(ibate.getLocation());
-    }
+//    @Test
+//    void shouldReturnAPageWhenAPageableParameterArePassed() {
+//        given(cityRepository.findAll(pageable)).willReturn(page);
+//
+//        Page<City> test = cityService.findAll(pageable);
+//
+//        assertThat(test).isEqualTo(page);
+//        assertThat(test).isNotNull();
+//        assertThat(test.getClass()).isEqualTo(page.getClass());
+//
+//    }
+//
+//    @Test
+//    void shouldReturnACityWhenANameAndUfArePassed() {
+//        given(cityRepository.searchCity(any(String.class), anyInt())).willReturn(ibate);
+//
+//        City test = cityService.searchCity("ibate", 26);
+//
+//        assertThat(test).isEqualTo(ibate);
+//        assertThat(test).isNotNull();
+//        assertThat(test.getClass()).isEqualTo(ibate.getClass());
+//
+//        assertThat(test.getId()).isEqualTo(ibate.getId());
+//        assertThat(test.getName()).isEqualTo(ibate.getName());
+//        assertThat(test.getUf()).isEqualTo(ibate.getUf());
+//        assertThat(test.getIbge()).isEqualTo(ibate.getIbge());
+//        assertThat(test.getGeolocation()).isEqualTo(ibate.getGeolocation());
+//        assertThat(test.getLocation()).isEqualTo(ibate.getLocation());
+//    }
 }

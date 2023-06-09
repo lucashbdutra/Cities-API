@@ -20,7 +20,7 @@ export class CitiesService {
     return this.http.get<CityDTO>(`${this.api}?page=${page}&size=${size}&sort=asc`);
 }
 
-  search(params: HttpParams): Observable<any>{
-    return this.http.get(`${this.api}/search`, {params});
+  search(params: HttpParams): Observable<City>{
+    return this.http.get<City>(`${this.api}/searchCity`, {params});
   }
 }

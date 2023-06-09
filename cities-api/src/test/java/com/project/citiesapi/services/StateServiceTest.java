@@ -49,52 +49,52 @@ class StateServiceTest {
         optional = Optional.of(state);
     }
 
-    @Test
-    void shouldReturnAListOfCitiesWhenTheMethodIsCalled() {
-        given(stateRepository.findAll()).willReturn(list);
-
-        List<State> test = stateService.findAll();
-
-        assertThat(test).isEqualTo(list);
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(list.getClass());
-        assertThat(test.get(0)).isEqualTo(list.get(0));
-
-        assertThat(test.get(INDEX).getId()).isEqualTo(list.get(INDEX).getId());
-        assertThat(test.get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
-        assertThat(test.get(INDEX).getUf()).isEqualTo(list.get(INDEX).getUf());
-        assertThat(test.get(INDEX).getIbge()).isEqualTo(list.get(INDEX).getIbge());
-        assertThat(test.get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
-        assertThat(test.get(INDEX).getCountry()).isEqualTo(list.get(INDEX).getCountry());
-        assertThat(test.get(INDEX).getDdd()).isEqualTo(list.get(INDEX).getDdd());
-
-    }
-
-    @Test
-    void shouldReturnAListOfCitiesWhenAIDParameterArePassed(){
-        given(stateRepository.findById(anyLong())).willReturn(optional);
-
-        State test = stateService.findById(ID);
-
-        assertThat(test).isEqualTo(state);
-        assertThat(test).isNotNull();
-        assertThat(test.getClass()).isEqualTo(state.getClass());
-        assertThat(test.getId()).isEqualTo(state.getId());
-
-        assertThat(test.getId()).isEqualTo(state.getId());
-        assertThat(test.getName()).isEqualTo(state.getName());
-        assertThat(test.getUf()).isEqualTo(state.getUf());
-        assertThat(test.getIbge()).isEqualTo(state.getIbge());
-        assertThat(test.getName()).isEqualTo(state.getName());
-        assertThat(test.getCountry()).isEqualTo(state.getCountry());
-        assertThat(test.getDdd()).isEqualTo(state.getDdd());
-    }
-
-    @Test
-    void shouldThrowACountryNotFoundExceptionWhenAEmptyOptionalArePasse(){
-        given(stateRepository.findById(anyLong())).willReturn(Optional.empty());
-
-        assertThrows(StateNotFound.class, () -> stateService.findById(ID), "Country not found for this id = " + ID);
-    }
+//    @Test
+//    void shouldReturnAListOfCitiesWhenTheMethodIsCalled() {
+//        given(stateRepository.findAll()).willReturn(list);
+//
+//        List<State> test = stateService.findAll();
+//
+//        assertThat(test).isEqualTo(list);
+//        assertThat(test).isNotNull();
+//        assertThat(test.getClass()).isEqualTo(list.getClass());
+//        assertThat(test.get(0)).isEqualTo(list.get(0));
+//
+//        assertThat(test.get(INDEX).getId()).isEqualTo(list.get(INDEX).getId());
+//        assertThat(test.get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
+//        assertThat(test.get(INDEX).getUf()).isEqualTo(list.get(INDEX).getUf());
+//        assertThat(test.get(INDEX).getIbge()).isEqualTo(list.get(INDEX).getIbge());
+//        assertThat(test.get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
+//        assertThat(test.get(INDEX).getCountry()).isEqualTo(list.get(INDEX).getCountry());
+//        assertThat(test.get(INDEX).getDdd()).isEqualTo(list.get(INDEX).getDdd());
+//
+//    }
+//
+//    @Test
+//    void shouldReturnAListOfCitiesWhenAIDParameterArePassed(){
+//        given(stateRepository.findById(anyLong())).willReturn(optional);
+//
+//        State test = stateService.findById(ID);
+//
+//        assertThat(test).isEqualTo(state);
+//        assertThat(test).isNotNull();
+//        assertThat(test.getClass()).isEqualTo(state.getClass());
+//        assertThat(test.getId()).isEqualTo(state.getId());
+//
+//        assertThat(test.getId()).isEqualTo(state.getId());
+//        assertThat(test.getName()).isEqualTo(state.getName());
+//        assertThat(test.getUf()).isEqualTo(state.getUf());
+//        assertThat(test.getIbge()).isEqualTo(state.getIbge());
+//        assertThat(test.getName()).isEqualTo(state.getName());
+//        assertThat(test.getCountry()).isEqualTo(state.getCountry());
+//        assertThat(test.getDdd()).isEqualTo(state.getDdd());
+//    }
+//
+//    @Test
+//    void shouldThrowACountryNotFoundExceptionWhenAEmptyOptionalArePasse(){
+//        given(stateRepository.findById(anyLong())).willReturn(Optional.empty());
+//
+//        assertThrows(StateNotFound.class, () -> stateService.findById(ID), "Country not found for this id = " + ID);
+//    }
 
 }

@@ -19,13 +19,8 @@ public interface CityRepository extends JpaRepository<City, Long> {
     @Query(value = "SELECT earth_distance(ll_to_earth(?1,?2), ll_to_earth(?3,?4)) as distance", nativeQuery = true)
     Double distanceByCube(final Double lat1, final Double lon1, final Double lat2, final Double lon2);
 
-    //Pesquisa de dados de uma cidade usando o nome e o código do estado.
-    @Query(value = "SELECT * FROM cidade WHERE nome=?1 AND uf=?2", nativeQuery = true)
-    City searchCity(String city, Integer uf);
-
-
     @Query(value = "SELECT * FROM cidade c WHERE LOWER(c.nome) LIKE ?1 ", nativeQuery = true)
-    Page<City> search( @Param("searchTerm") String searchTerm, Pageable pageable);
+    City searchCity( @Param("searchTerm") String searchTerm);
 
 
 }

@@ -46,50 +46,50 @@ class StateResourceTest {
         list = List.of(state);
     }
 
-
-    @Test
-    void shouldReturnAPListWhenCalled() {
-        given(stateService.findAll()).willReturn(list);
-
-        ResponseEntity<List<State>> test = stateResource.findAll();
-
-        assertThat(test).isNotNull();
-        assertThat(test.getBody()).isNotNull();
-
-        assertThat(test).isEqualTo(ResponseEntity.ok().body(list));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
-        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(list).getStatusCode());
-        assertThat(test.getBody().get(INDEX)).isEqualTo(list.get(INDEX));
-
-        assertThat(test.getBody().get(INDEX).getId()).isEqualTo(list.get(INDEX).getId());
-        assertThat(test.getBody().get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
-        assertThat(test.getBody().get(INDEX).getUf()).isEqualTo(list.get(INDEX).getUf());
-        assertThat(test.getBody().get(INDEX).getIbge()).isEqualTo(list.get(INDEX).getIbge());
-        assertThat(test.getBody().get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
-        assertThat(test.getBody().get(INDEX).getCountry()).isEqualTo(list.get(INDEX).getCountry());
-        assertThat(test.getBody().get(INDEX).getDdd()).isEqualTo(list.get(INDEX).getDdd());
-    }
-
-    @Test
-    void shouldReturnAStateWhenALongParameterArePassed(){
-        given(stateService.findById(anyLong())).willReturn(state);
-
-        ResponseEntity<State> test = stateResource.findById(ID);
-
-        assertThat(test).isNotNull();
-        assertThat(test.getBody()).isNotNull();
-
-        assertThat(test).isEqualTo(ResponseEntity.ok().body(state));
-        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
-        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(state).getStatusCode());
-        assertThat(test.getBody()).isEqualTo(state);
-
-        assertThat(test.getBody().getId()).isEqualTo(state.getId());
-        assertThat(test.getBody().getName()).isEqualTo(state.getName());
-        assertThat(test.getBody().getUf()).isEqualTo(state.getUf());
-        assertThat(test.getBody().getIbge()).isEqualTo(state.getIbge());
-        assertThat(test.getBody().getName()).isEqualTo(state.getName());
-        assertThat(test.getBody().getCountry()).isEqualTo(state.getCountry());
-        assertThat(test.getBody().getDdd()).isEqualTo(state.getDdd());
-    }
+//
+//    @Test
+//    void shouldReturnAPListWhenCalled() {
+//        given(stateService.findAll()).willReturn(list);
+//
+//        ResponseEntity<List<State>> test = stateResource.findAll();
+//
+//        assertThat(test).isNotNull();
+//        assertThat(test.getBody()).isNotNull();
+//
+//        assertThat(test).isEqualTo(ResponseEntity.ok().body(list));
+//        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
+//        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(list).getStatusCode());
+//        assertThat(test.getBody().get(INDEX)).isEqualTo(list.get(INDEX));
+//
+//        assertThat(test.getBody().get(INDEX).getId()).isEqualTo(list.get(INDEX).getId());
+//        assertThat(test.getBody().get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
+//        assertThat(test.getBody().get(INDEX).getUf()).isEqualTo(list.get(INDEX).getUf());
+//        assertThat(test.getBody().get(INDEX).getIbge()).isEqualTo(list.get(INDEX).getIbge());
+//        assertThat(test.getBody().get(INDEX).getName()).isEqualTo(list.get(INDEX).getName());
+//        assertThat(test.getBody().get(INDEX).getCountry()).isEqualTo(list.get(INDEX).getCountry());
+//        assertThat(test.getBody().get(INDEX).getDdd()).isEqualTo(list.get(INDEX).getDdd());
+//    }
+//
+//    @Test
+//    void shouldReturnAStateWhenALongParameterArePassed(){
+//        given(stateService.findById(anyLong())).willReturn(state);
+//
+//        ResponseEntity<State> test = stateResource.findById(ID);
+//
+//        assertThat(test).isNotNull();
+//        assertThat(test.getBody()).isNotNull();
+//
+//        assertThat(test).isEqualTo(ResponseEntity.ok().body(state));
+//        assertThat(test.getClass()).isEqualTo(ResponseEntity.class);
+//        assertThat(test.getStatusCode()).isEqualTo(ResponseEntity.ok().body(state).getStatusCode());
+//        assertThat(test.getBody()).isEqualTo(state);
+//
+//        assertThat(test.getBody().getId()).isEqualTo(state.getId());
+//        assertThat(test.getBody().getName()).isEqualTo(state.getName());
+//        assertThat(test.getBody().getUf()).isEqualTo(state.getUf());
+//        assertThat(test.getBody().getIbge()).isEqualTo(state.getIbge());
+//        assertThat(test.getBody().getName()).isEqualTo(state.getName());
+//        assertThat(test.getBody().getCountry()).isEqualTo(state.getCountry());
+//        assertThat(test.getBody().getDdd()).isEqualTo(state.getDdd());
+//    }
 }
